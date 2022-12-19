@@ -398,8 +398,8 @@ class MainWindow(QMainWindow):
         Выборка данных для создания отчётов
         :return: [count_order, count_serv, count_order_serv]
         """
-        start = self.date_start.dateTime().toString('dd.MM.yyyy')
-        end = self.date_end.dateTime().toString('dd.MM.yyyy')
+        start = self.date_start.dateTime().toString('yyyy-MM-dd')
+        end = self.date_end.dateTime().toString('yyyy-MM-dd')
         data = self.facade.get_date_serv()
         count_serv = {}  # 1
         count_order_serv = {}  # 2
@@ -408,9 +408,9 @@ class MainWindow(QMainWindow):
         for i, date in enumerate(data):
             data[i] = list(data[i])
             d = str(date[1]).split('-')
-            data[i][1] = d[2] + '.' + d[1] + '.' + d[0]
+            data[i][1] = d[0] + '-' + d[1] + '-' + d[2]
             if start <= data[i][1] <= end:
-                servs = date[0].split()
+                servs = date[0]
                 try:
                     count_order[date[1]] += 1
                 except KeyError:
